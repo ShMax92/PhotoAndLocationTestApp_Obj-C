@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  AccessVC.h
 //  ITRex_TestProj_Obj-C
 //
 //  Created by Maxim Shirko on 19.09.2018.
@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface ViewController : UIViewController
-
+@interface AccessVC : UIViewController
 
 @end
-

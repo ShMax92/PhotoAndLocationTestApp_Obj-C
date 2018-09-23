@@ -17,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self checkAccess];
     return YES;
 }
 
@@ -35,6 +36,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    [self checkAccess];
 }
 
 
@@ -47,5 +49,17 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void) checkAccess {
+    BOOL locationAccessGranted = ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse);
+    BOOL cameraAccessGranted = ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusAuthorized);
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *rootVC;
+    if (locationAccessGranted && cameraAccessGranted) {
+        rootVC = [storyboard instantiateViewControllerWithIdentifier:@"NavigationVC"];
+    } else {
+        rootVC = [storyboard instantiateViewControllerWithIdentifier:@"AccessVC"];
+    }
+    [[self window] setRootViewController:rootVC];
+}
 
 @end
